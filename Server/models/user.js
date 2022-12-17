@@ -1,0 +1,17 @@
+const { Schema, model,Types } = require('mongoose');
+
+const userSchema = new Schema({
+   
+    email: {type: String, required: true,},
+
+    hashedPassword: { type: String, required: true,},
+
+});
+
+
+
+
+
+const User = model('User', userSchema);
+
+module.exports = User;
