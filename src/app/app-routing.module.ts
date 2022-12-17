@@ -14,6 +14,7 @@ import { NotloggedGuard } from './shared/guards/not-logged.guard';
 
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,12 @@ const routes: Routes = [
     path:'profile/:id',
     component:ProfileComponent,
     canActivate:[AuthGuard]
+
+  },
+  {
+    path:'**',
+    component:NotFoundComponent,
+    
 
   },
 ];
