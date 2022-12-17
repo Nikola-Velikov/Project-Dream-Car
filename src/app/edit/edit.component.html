@@ -1,0 +1,234 @@
+<html lang="en">
+  <head>
+    <!-- Do not forget to change the path to the css file -->
+
+    <title>Edit Offer</title>
+  </head>
+
+  <body>
+    <!-- In case of error, you should display div with class "error" -->
+    <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+
+    <!-- <div class="error">
+        <p>Error message - 1</p>
+        <p>Error message - 2</p>
+    </div> -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <!-- Do not forget to change the path to the images -->
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <!-- Guest users and Logged users -->
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+
+            <!-- Logged users -->
+            <ng-container *ngIf="user">
+
+              <li class="nav-item">
+                <a class="nav-link" href="/catalog">Offers</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/create">Create Offert</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile/{{user}}">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            </ng-container>
+            <!-- Guest users -->
+            <ng-container *ngIf="!user">
+
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="py-5" id="edit-trip-page">
+        <div class="container edit">
+          <h1>Edit trip</h1>
+          <div>
+            <form [formGroup]="form" (ngSubmit)="update(form)">
+              <div class="edit-label">
+                <label for="startPoint">
+                  <i class="fas fa-map-marker-alt"></i> Town</label
+                >
+                <label for="endPoint">
+                  <i class="fas fa-map-marker-alt"></i> Year</label
+                >
+              </div>
+              <div class="form-group edit-input">
+                <input
+                  type="text"
+                  class="form-control-2"
+                  id="startPoint"
+                  formControlName="town"
+                  minlength="2"
+                  required=""
+                />
+
+                <div *ngIf="town?.touched && town?.invalid" class="error">
+                  <p *ngIf="town?.errors?.['required']">Town is required!</p>
+                  <p *ngIf="town?.errors?.['minlength']">
+                    Town has to be at least 2 characters long!
+                  </p>
+                </div>
+                <input
+                  type="text"
+                  class="form-control-2"
+                  id="endPoint"
+                  name=""
+                  value=""
+                  formControlName="year"
+                  required=""
+                />
+              </div>
+              <div *ngIf="year?.touched && year?.invalid" class="error">
+                <p *ngIf="year?.errors?.['required']">Year is required!</p>
+              </div>
+              <div class="edit-label">
+                <label for="date"> Made In</label>
+                <label for="time"> Color</label>
+              </div>
+              <div class="form-group edit-input">
+                <input
+                  type="text"
+                  class="form-control-2"
+                  id="date"
+                  name=""
+                  value=""
+                  formControlName="madeIn"
+                />
+                <div *ngIf="madeIn?.touched && madeIn?.invalid" class="error">
+                  <p *ngIf="madeIn?.errors?.['required']">
+                    Made In is required!
+                  </p>
+                </div>
+                <input
+                  type="text"
+                  class="form-control-2"
+                  id="time"
+                  name=""
+                  value="Color"
+                  required=""
+                  formControlName="color"
+                />
+                <div *ngIf="madeIn?.touched && madeIn?.invalid" class="error">
+                  <p *ngIf="madeIn?.errors?.['required']">color is required!</p>
+                </div>
+              </div>
+              <div class="edit-label">
+                <label for="carImage">Car Image</label>
+                <label for="carBrand">Car Brand</label>
+              </div>
+              <div class="form-group edit-input">
+                <input
+                  formControlName="imageUrl"
+                  type="text"
+                  class="form-control-2"
+                  id="carImage"
+                  required=""
+                  pattern="https:\/\/.+|http:\/\/.+"
+                />
+                <div
+                  *ngIf="imageUrl?.touched && imageUrl?.invalid"
+                  class="error"
+                >
+                  <p *ngIf="imageUrl?.errors?.['required']">
+                    Car image is required!
+                  </p>
+                  <p *ngIf="imageUrl?.errors?.['pattern']">
+                    Car image is not valid!
+                  </p>
+                </div>
+                <input
+                  type="text"
+                  class="form-control-2"
+                  id="carBrand"
+                  formControlName="model"
+                />
+                <div *ngIf="model?.touched && model?.invalid" class="error">
+                  <p *ngIf="model?.errors?.['required']">Model is required!</p>
+                </div>
+              </div>
+              <div class="edit-label">
+                <label for="seats">Available Seats</label>
+                <label for="price">Price</label>
+              </div>
+              <div class="form-group edit-input">
+                <input
+                  type="text"
+                  class="form-control-2"
+                  id="seats"
+                  name=""
+                  value=""
+                  formControlName="seats"
+                  required=""
+                />
+                <div *ngIf="seats?.touched && seats?.invalid" class="error">
+                  <p *ngIf="seats?.errors?.['required']">Seats are required!</p>
+                </div>
+                <input
+                  type="text"
+                  class="form-control-2"
+                  formControlName="price"
+                  id="price"
+                  name=""
+                  value=""
+                  formControlName="price"
+                  required=""
+                />
+                <div *ngIf="price?.touched && price?.invalid" class="error">
+                  <p *ngIf="price?.errors?.['required']">Price is required!</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name=""
+                  formControlName="description"
+                  required=""
+                  minlength="10"
+                ></textarea>
+                <div
+                  *ngIf="description?.touched && description?.invalid"
+                  class="error"
+                >
+                  <p *ngIf="description?.errors?.['required']">
+                    Description is required!
+                  </p>
+                  <p *ngIf="description?.errors?.['minlength']">
+                    Description has to be at least 10 characters long!
+                  </p>
+                </div>
+              </div>
+              <button
+                type="submit"
+                [disabled]="form.invalid"
+                class="btn btn-primary"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

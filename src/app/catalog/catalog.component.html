@@ -1,0 +1,103 @@
+<html lang="en">
+  <head>
+    <!-- Do not forget to change the path to the css file -->
+
+    <title>Offers</title>
+  </head>
+
+  <body>
+    <!-- In case of error, you should display div with class "error" -->
+    <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+
+    <!-- <div class="error">
+        <p>Error message - 1</p>
+        <p>Error message - 2</p>
+    </div> -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <!-- Do not forget to change the path to the images -->
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <!-- Guest users and Logged users -->
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+
+            <!-- Logged users -->
+            <ng-container *ngIf="user">
+
+              <li class="nav-item">
+                <a class="nav-link" href="/catalog">Offers</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/create">Create Offert</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile/{{user}}">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            </ng-container>
+            <!-- Guest users -->
+            <ng-container *ngIf="!user">
+
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="container" id="shared-trips-page">
+        <div class="row text-center">
+          <!-- If there are shared trips in the database display each of them -->
+
+          <!-- trip #1 -->
+          <ng-container *ngIf="offer != null && offer.length > 0">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let offer of offer">
+              <div class="card h-100">
+                <img class="card-img-top" src="{{ offer.imageUrl }}" alt="" />
+                <ng-container *ngIf="offer.owner=='true'">
+
+                  <h6><span style="text-align: left; display: block; width: 24%; color: white;" class="badge bg-secondary">Favorited</span></h6>
+                </ng-container>
+                <div class="card-body">
+                  <h5 class="mt-4 card-info" style="font-size: 25px">
+                    Model: <span> {{ offer.model }}</span>
+                  </h5>
+                  <br />
+
+                  <h5 class="mt-4" style="font-size: 25px">
+                    Price: <span>{{ offer.price }}</span> BGN
+                  </h5>
+                </div>
+                <div class="card-footer">
+                  <a href="{{ offer._id }}" class="btn btn-primary">Details</a>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="offer != null && offer.length == 0">
+            <div class="no-trips">
+              <p class="lead">There is no offers right now...</p>
+            </div>
+          </ng-container>
+
+          <!-- trip #2 -->
+
+          <!-- If there are no shared trips in the database -->
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

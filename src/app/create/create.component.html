@@ -1,0 +1,323 @@
+<html lang="en">
+  <head>
+    <!-- Do not forget to change the path to the css file -->
+
+    <title>Create Offer</title>
+  </head>
+
+  <body>
+    <!-- In case of error, you should display div with class "error" -->
+    <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+
+    <!-- <div class="error">
+        <p>Error message - 1</p>
+        <p>Error message - 2</p>
+    </div> -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <!-- Do not forget to change the path to the images -->
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <!-- Guest users and Logged users -->
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+
+            <!-- Logged users -->
+            <ng-container *ngIf="user">
+
+              <li class="nav-item">
+                <a class="nav-link" href="/catalog">Offers</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/create">Create Offert</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile/{{user}}">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            </ng-container>
+            <!-- Guest users -->
+            <ng-container *ngIf="!user">
+
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="py-5" id="offer-trip-page">
+        <div class="container offer-trip">
+          <h1>Create Offer</h1>
+          <div>
+            <form #form="ngForm" (ngSubmit)="create(form)">
+              <div class="offer-label">
+                <label for="town">
+                  <i class="fas fa-map-marker-alt"></i> Town</label
+                >
+                <label for="year"
+                  ><i class="far fa-calendar-alt"></i> Year</label
+                >
+              </div>
+              <div class="form-group offer-input">
+                <input
+                  ngModel
+                  #townInput="ngModel"
+                  type="text"
+                  class="form-control-2"
+                  id="town"
+                  placeholder="Sofia"
+                  name="town"
+                  value=""
+                  required=""
+                  minlength="2"
+                />
+                <ng-container *ngIf="townInput.touched">
+                  <div class="error" *ngIf="townInput.errors?.['required']">
+                    <p>Town is required!</p>
+                  </div>
+                  <div class="error" *ngIf="townInput.errors?.['minlength']">
+                    <p>Town has to be at least 2 characters long!</p>
+                  </div>
+                </ng-container>
+                <input
+                  ngModel
+                  #yearInput="ngModel"
+                  type="number"
+                  class="form-control-2"
+                  id="year"
+                  placeholder="2002"
+                  name="year"
+                  value=""
+                  required=""
+                />
+              </div>
+              <ng-container *ngIf="yearInput.touched">
+                <div class="error" *ngIf="yearInput.errors?.['required']">
+                  <p>Year is required!</p>
+                </div>
+              </ng-container>
+              <div class="offer-label">
+                <label for="time">Made In</label>
+                <label for="color">Color</label>
+              </div>
+              <div class="form-group offer-input">
+                <input
+                  ngModel
+                  #madeInInput="ngModel"
+                  type="text"
+                  class="form-control-2"
+                  id="made"
+                  placeholder="China"
+                  name="madeIn"
+                  value=""
+                  required=""
+                />
+
+                <input
+                  ngModel
+                  #colorInput="ngModel"
+                  type="text"
+                  class="form-control-2"
+                  id="time"
+                  placeholder="Color"
+                  name="color"
+                  value=""
+                  required=""
+                />
+              </div>
+              <ng-container *ngIf="colorInput.touched">
+                <div class="error" *ngIf="colorInput.errors?.['required']">
+                  <p>Color is required!</p>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="madeInInput.touched">
+                <div class="error" *ngIf="madeInInput.errors?.['required']">
+                  <p>Made In is required!</p>
+                </div>
+              </ng-container>
+              <div class="offer-label">
+                <label for="carImage">Car Image</label>
+                <label for="carBrand">Car Brand</label>
+              </div>
+              <div class="form-group offer-input">
+                <input
+                  ngModel
+                  #imageInput="ngModel"
+                  type="text"
+                  class="form-control-2"
+                  id="carImage"
+                  placeholder="https://..."
+                  name="imageUrl"
+                  value=""
+                  required=""
+                  pattern="https:\/\/.+|http:\/\/.+"
+                />
+                <ng-container *ngIf="imageInput.touched">
+                  <div class="error" *ngIf="imageInput.errors?.['required']">
+                    <p>Image is required!</p>
+                  </div>
+
+                  <div class="error" *ngIf="imageInput.errors?.['pattern']">
+                    <p>Image is not valid!</p>
+                  </div>
+                </ng-container>
+                <input
+                  ngModel
+                  #modelInput="ngModel"
+                  type="text"
+                  class="form-control-2"
+                  id="carBrand"
+                  placeholder="Audi"
+                  name="model"
+                  value=""
+                  required=""
+                />
+              </div>
+              <ng-container *ngIf="modelInput.touched">
+                <div class="error" *ngIf="modelInput.errors?.['required']">
+                  <p>Car brand is required!</p>
+                </div>
+              </ng-container>
+              <div class="offer-label">
+                <label for="seats">Available Seats</label>
+                <label for="price">Price</label>
+              </div>
+              <div class="form-group offer-input">
+                <input
+                  ngModel
+                  #seatsInput="ngModel"
+                  type="number"
+                  class="form-control-2"
+                  id="seats"
+                  placeholder="4"
+                  name="seats"
+                  value=""
+                  required=""
+                />
+                <ng-container *ngIf="seatsInput.touched">
+                  <div class="error" *ngIf="seatsInput.errors?.['required']">
+                    <p>Seats are required!</p>
+                  </div>
+                </ng-container>
+                <input
+                  ngModel
+                  #priceInput="ngModel"
+                  type="number"
+                  class="form-control-2"
+                  id="price"
+                  placeholder="25"
+                  name="price"
+                  value=""
+                  required=""
+                />
+              </div>
+              <ng-container *ngIf="priceInput.touched">
+                <div class="error" *ngIf="priceInput.errors?.['required']">
+                  <p>Price is required!</p>
+                </div>
+              </ng-container>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                  ngModel
+                  #descriptionInput="ngModel"
+                  class="form-control"
+                  id="description"
+                  placeholder="Information about the car"
+                  name="description"
+                  minlength="10"
+                  required=""
+                ></textarea>
+                <ng-container *ngIf="descriptionInput.touched">
+                  <div
+                    class="error"
+                    *ngIf="descriptionInput.errors?.['required']"
+                  >
+                    <p>Description is required!</p>
+                  </div>
+                  <div
+                    class="error"
+                    *ngIf="descriptionInput.errors?.['minlength']"
+                  >
+                    <p>Description has to be at least 10 characters long!</p>
+                  </div>
+                </ng-container>
+              </div>
+              <div *ngIf="form.invalid">
+                <button type="submit" disabled class="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+              <div *ngIf="form.valid">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+<!--<form #form="ngForm" class="login" >
+    <fieldset>
+      <h2>Login Form</h2>
+  
+      <p class="field field-icon">
+        <label for="email"><span><i class="fas fa-envelope"></i></span></label>
+        <input #emailInput="ngModel" class="input-error" ngModel required type="text" name="email" id="email"
+          placeholder="john.doe">
+      </p>
+  
+      <-- <select ngModel="456" name="test" multiple>
+        <option value="123">123</option>
+        <option value="456">456</option>
+      </select>
+  
+      {{form.value | json}} -->
+<!-- <input #files type="file" ngModel required> ->
+  
+      <ng-container *ngIf="emailInput.touched">
+        <p class="error" *ngIf="emailInput.errors?.['required']">
+          Email is required!
+        </p>
+        <p class="error" *ngIf="emailInput.errors?.['appEmailValidator']">
+          Email is not valid!
+        </p>
+      </ng-container>
+  
+      <p class="field field-icon">
+        <label for="password"><span><i class="fas fa-lock"></i></span></label>
+        <input type="password" ngModel #passwordInput="ngModel" name="password" id="password" placeholder="******"
+          required minlength="5">
+      </p>
+      <ng-container *ngIf="passwordInput.touched">
+        <p class="error" *ngIf="passwordInput.errors?.['required']">
+          Password is required!
+        </p>
+        <p class="error" *ngIf="passwordInput.errors?.['minlength']">
+          Password must be at least 5 characters!
+        </p>
+      </ng-container>
+  
+      <button [disabled]="form.invalid">Login</button>
+  
+      <p class="text-center">
+        Have an account?
+        <a href="#">Register</a>
+      </p>
+      </fieldset>
+</form>-->

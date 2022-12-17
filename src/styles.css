@@ -1,0 +1,12 @@
+body {
+    content: "";
+    /*background: linear-gradient(rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?cs=srgb&dl=pexels-mike-b-170811.jpg&fm=jpg');*/
+    background-size: cover;
+  
+    position: absolute;
+    top: -25px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+  }
+  
